@@ -23,15 +23,24 @@ function pagesHtmlBar(startValue = 5) {
   return (pagesBar.innerHTML = renderBar);
 }
 
+function clearActivePage(array) {
+  const newArray = [...array];
+  newArray.map(element => element.classList.remove('pages_item--active'));
+}
+
 pagesBar.addEventListener('click', e => {
   if (e.target.tagName === 'A') {
+    console.log('click', e);
+    const allActiveSelectPage = document.querySelectorAll(
+      '.pages_item--active'
+    );
+    clearActivePage(allActiveSelectPage);
+
+    const fatherElement = e.target.parentElement;
     const pageId = e.target.parentElement.getAttribute('data-id');
+    fatherElement.classList.toggle('pages_item--active');
     requestFetch(pageId);
   }
 });
-
-// window.addEventListener('load', e => {
-//   console.log(e);
-// });
 
 pagesHtmlBar();

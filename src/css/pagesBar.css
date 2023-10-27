@@ -1,5 +1,16 @@
 * {
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  color: #212121;
+}
+ul {
   list-style: none;
+}
+address {
+  font-style: normal;
 }
 
 body {
@@ -18,10 +29,21 @@ body {
   height: 40px;
   width: 40px;
   border-radius: 5px;
-  background: #ff6b08;
+  background: #ffffff;
 
   display: flex;
-  /* align-content: center; */
   align-items: center;
   justify-content: center;
 }
+
+.pages_item:hover,
+.pages_item:focus {
+  background: #ff6b08;
+}
+
+/* .pages_item--active,
+.pages_item:hover,
+.pages_item:focus,
+.pages_item:active {
+  background: #ff6b08;
+} */

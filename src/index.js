@@ -10,14 +10,20 @@ const requestFetch = page => {
     .catch(error => console.log(error));
 };
 
-function pagesHtmlBar(startValue = 5) {
+function pagesHtmlBar(beginValue = 1, endValue = 5) {
   const initialRangeArray = [];
-  for (let i = 0; i < startValue; i += 1) {
-    initialRangeArray.push(
-      `<li data-id="${i + 1}" class="pages_item"><a href="javascript:void(0)">${
-        i + 1
-      }</a></li>`
-    );
+  for (let i = beginValue; i <= endValue; i += 1) {
+    if (i === endValue && endValue <= 5) {
+      initialRangeArray.push(
+        `<li data-id="${i}" class="pages_item"><a class="pages_item" href="javascript:void(0)">${i}</a></li><li data-id="${
+          i + 1
+        }" class="nextPage"><a class="nextPage" href="javascript:void(0)">Next</a></li>`
+      );
+    } else {
+      initialRangeArray.push(
+        `<li data-id="${i}" class="pages_item"><a class="pages_item" href="javascript:void(0)">${i}</a></li>`
+      );
+    }
   }
   const renderBar = initialRangeArray.join('');
   return (pagesBar.innerHTML = renderBar);
@@ -30,7 +36,6 @@ function clearActivePage(array) {
 
 pagesBar.addEventListener('click', e => {
   if (e.target.tagName === 'A') {
-    console.log('click', e);
     const allActiveSelectPage = document.querySelectorAll(
       '.pages_item--active'
     );

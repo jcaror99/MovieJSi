@@ -39,6 +39,7 @@ body {
 .pages_item:hover,
 .pages_item:focus {
   background: #ff6b08;
+  color: #ffffff;
 }
 
 .pages_item--active,
@@ -46,4 +47,5 @@ body {
 .pages_item:focus,
 .pages_item:active {
   background: #ff6b08;
+  color: #ffffff;
 }

@@ -15,7 +15,7 @@ address {
 
 body {
   font-family: 'Roboto', sans-serif;
-  size: 12px;
+  font-size: 12px;
   line-height: 16px;
 }
 
@@ -37,32 +37,59 @@ body {
 }
 
 .pages_item:hover,
-.pages_item:focus {
+.pages_item:hover a,
+.pages_item:focus,
+.pages_item:focus a {
   background: #ff6b08;
   color: #ffffff;
 }
 
 .pages_item--active,
-.pages_item:hover,
-.pages_item:focus,
-.pages_item:active {
+.pages_item--active a {
   background: #ff6b08;
   color: #ffffff;
 }
 
-.nextPage {
-  height: 40px;
-  width: 40px;
-  border-radius: 5px;
-  background: #f7f7f7;
+.loader-modal {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  top: 0px;
+  left: 0px;
+  opacity: 1;
+  visibility: visible;
+  transition-property: opacity;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+
+  z-index: 2;
+}
+.loader-modal.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
 }
 
-.nextPage:hover,
-.nextPage:focus {
-  background: #ff6b08;
-  color: #ffffff;
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #fff;
+  border-bottom-color: #ff6b08;
+  border-radius: 50%;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

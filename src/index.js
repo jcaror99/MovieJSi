@@ -15,23 +15,32 @@ const requestFetch = page => {
     });
 };
 
-function pagesHtmlBar(beginValue = 1, endValue = 5) {
+function pagesHtmlBar(beginValue = 1, endValue = 5, itemActiveClass) {
   const initialRangeArray = [];
+
   for (let i = beginValue; i <= endValue; i += 1) {
-    if (i === endValue && endValue <= 5) {
+    if (i === endValue && i === itemActiveClass) {
+      initialRangeArray.push(
+        `<li data-id="${i}" class="pages_item pages_item--active"><a href="javascript:void(0)">${i}</a></li><li data-id="${
+          i + 1
+        }" class="pages_item" name="next"><a href="javascript:void(0)">Next</a></li>`
+      );
+    } else if (i === endValue && i !== itemActiveClass) {
       initialRangeArray.push(
         `<li data-id="${i}" class="pages_item"><a href="javascript:void(0)">${i}</a></li><li data-id="${
           i + 1
-        }" class="pages_item"><a href="javascript:void(0)">Next</a></li>`
-      );
-    } else if (i === 1) {
-      initialRangeArray.push(
-        `<li data-id="${i}" class="pages_item"><a href="javascript:void(0)">${i}</a></li>`
+        }" class="pages_item" name="next"><a href="javascript:void(0)">Next</a></li>`
       );
     } else {
-      initialRangeArray.push(
-        `<li data-id="${i}" class="pages_item"><a href="javascript:void(0)">${i}</a></li>`
-      );
+      if (i !== endValue && i === itemActiveClass) {
+        initialRangeArray.push(
+          `<li data-id="${i}" class="pages_item pages_item--active"><a href="javascript:void(0)">${i}</a></li>`
+        );
+      } else {
+        initialRangeArray.push(
+          `<li data-id="${i}" class="pages_item"><a href="javascript:void(0)">${i}</a></li>`
+        );
+      }
     }
   }
 
@@ -44,22 +53,35 @@ function clearActivePage(array, classToRemove) {
   newArray.map(element => element.classList.remove(classToRemove));
 }
 
+window.addEventListener('load', () => {
+  pagesHtmlBar(1, 5, 1);
+});
+
 pagesBar.addEventListener('click', e => {
   if (e.target.tagName === 'A') {
     loaderModal.classList.toggle('is-hidden');
+
     const allActiveSelectPage = document.querySelectorAll(
       '.pages_item--active'
     );
+    const pageId = e.target.parentElement.getAttribute('data-id');
+    const nextTag = e.target.parentElement.getAttribute('name');
 
     clearActivePage(allActiveSelectPage, 'pages_item--active');
+    console.log(pageId);
+    console.log(nextTag);
+    console.log(e);
 
-    const fatherElement = e.target.parentElement;
-    const currentElement = e.target;
-    fatherElement.classList.toggle('pages_item--active');
+    if (nextTag === 'next') {
+      pagesHtmlBar(pageId - 4, pageId, pageId);
+      document
+        .querySelector(`[data-id="${pageId}"]`)
+        .classList.toggle('pages_item--active');
+    } else {
+      const fatherElement = e.target.parentElement;
+      fatherElement.classList.toggle('pages_item--active');
+    }
 
-    const pageId = e.target.parentElement.getAttribute('data-id');
     requestFetch(pageId);
   }
 });
-
-pagesHtmlBar();

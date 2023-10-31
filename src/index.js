@@ -28,6 +28,12 @@ function pagesHtmlBar(beginValue = 1, endValue = 5) {
           i + 1
         }" class="pages_item" name="next"><a href="javascript:void(0)">Next</a></li>`
       );
+    } else if (beginRange > 1 && i === beginRange) {
+      initialRangeArray.push(
+        `<li data-id="${
+          i - 1
+        }" class="pages_item" name="previous"><a href="javascript:void(0)">Prev</a></li><li data-id="${i}" class="pages_item"><a href="javascript:void(0)">${i}</a></li>`
+      );
     } else {
       initialRangeArray.push(
         `<li data-id="${i}" class="pages_item"><a href="javascript:void(0)">${i}</a></li>`

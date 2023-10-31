@@ -15,32 +15,23 @@ const requestFetch = page => {
     });
 };
 
-function pagesHtmlBar(beginValue = 1, endValue = 5, itemActiveClass) {
+function pagesHtmlBar(beginValue = 1, endValue = 5) {
+  const beginRange = parseInt(beginValue, 10);
+  const endRange = parseInt(endValue, 10);
+
   const initialRangeArray = [];
 
-  for (let i = beginValue; i <= endValue; i += 1) {
-    if (i === endValue && i === itemActiveClass) {
-      initialRangeArray.push(
-        `<li data-id="${i}" class="pages_item pages_item--active"><a href="javascript:void(0)">${i}</a></li><li data-id="${
-          i + 1
-        }" class="pages_item" name="next"><a href="javascript:void(0)">Next</a></li>`
-      );
-    } else if (i === endValue && i !== itemActiveClass) {
+  for (let i = beginRange; i <= endRange; i += 1) {
+    if (i === endRange) {
       initialRangeArray.push(
         `<li data-id="${i}" class="pages_item"><a href="javascript:void(0)">${i}</a></li><li data-id="${
           i + 1
         }" class="pages_item" name="next"><a href="javascript:void(0)">Next</a></li>`
       );
     } else {
-      if (i !== endValue && i === itemActiveClass) {
-        initialRangeArray.push(
-          `<li data-id="${i}" class="pages_item pages_item--active"><a href="javascript:void(0)">${i}</a></li>`
-        );
-      } else {
-        initialRangeArray.push(
-          `<li data-id="${i}" class="pages_item"><a href="javascript:void(0)">${i}</a></li>`
-        );
-      }
+      initialRangeArray.push(
+        `<li data-id="${i}" class="pages_item"><a href="javascript:void(0)">${i}</a></li>`
+      );
     }
   }
 
@@ -54,7 +45,10 @@ function clearActivePage(array, classToRemove) {
 }
 
 window.addEventListener('load', () => {
-  pagesHtmlBar(1, 5, 1);
+  pagesHtmlBar(1, 5);
+  document
+    .querySelector(`[data-id="${1}"]`)
+    .classList.toggle('pages_item--active');
 });
 
 pagesBar.addEventListener('click', e => {
@@ -68,12 +62,9 @@ pagesBar.addEventListener('click', e => {
     const nextTag = e.target.parentElement.getAttribute('name');
 
     clearActivePage(allActiveSelectPage, 'pages_item--active');
-    console.log(pageId);
-    console.log(nextTag);
-    console.log(e);
 
     if (nextTag === 'next') {
-      pagesHtmlBar(pageId - 4, pageId, pageId);
+      pagesHtmlBar(pageId - 4, pageId);
       document
         .querySelector(`[data-id="${pageId}"]`)
         .classList.toggle('pages_item--active');

@@ -64,13 +64,18 @@ pagesBar.addEventListener('click', e => {
     const allActiveSelectPage = document.querySelectorAll(
       '.pages_item--active'
     );
-    const pageId = e.target.parentElement.getAttribute('data-id');
-    const nextTag = e.target.parentElement.getAttribute('name');
+    const pageId = parseInt(e.target.parentElement.getAttribute('data-id'), 10);
+    const tagName = e.target.parentElement.getAttribute('name');
 
     clearActivePage(allActiveSelectPage, 'pages_item--active');
 
-    if (nextTag === 'next') {
+    if (tagName === 'next') {
       pagesHtmlBar(pageId - 4, pageId);
+      document
+        .querySelector(`[data-id="${pageId}"]`)
+        .classList.toggle('pages_item--active');
+    } else if (tagName === 'previous') {
+      pagesHtmlBar(pageId, pageId + 4);
       document
         .querySelector(`[data-id="${pageId}"]`)
         .classList.toggle('pages_item--active');

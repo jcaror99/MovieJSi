@@ -25,7 +25,7 @@ body {
   justify-content: center;
 }
 
-.pages_item {
+.pages__item {
   height: 40px;
   width: 40px;
   border-radius: 5px;
@@ -36,16 +36,27 @@ body {
   justify-content: center;
 }
 
-.pages_item:hover,
-.pages_item:hover a,
-.pages_item:focus,
-.pages_item:focus a {
+.pages__item--movement {
+  height: 40px;
+  width: 40px;
+  border-radius: 5px;
+  background: #f7f7f7;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pages__item:hover,
+.pages__item:hover a,
+.pages__item:focus,
+.pages__item:focus a {
   background: #ff6b08;
   color: #ffffff;
 }
 
-.pages_item--active,
-.pages_item--active a {
+.pages__item--active,
+.pages__item--active a {
   background: #ff6b08;
   color: #ffffff;
 }

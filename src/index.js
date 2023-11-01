@@ -24,19 +24,19 @@ function pagesHtmlBar(beginValue = 1, endValue = 5) {
   for (let i = beginRange; i <= endRange; i += 1) {
     if (i === endRange) {
       initialRangeArray.push(
-        `<li data-id="${i}" class="pages_item"><a href="javascript:void(0)">${i}</a></li><li data-id="${
+        `<li data-id="${i}" class="pages__item"><a href="javascript:void(0)">${i}</a></li><li data-id="${
           i + 1
-        }" class="pages_item" name="next"><a href="javascript:void(0)">Next</a></li>`
+        }" class="pages__item pages__item--movement" name="next"><a href="javascript:void(0)">Next</a></li>`
       );
     } else if (beginRange > 1 && i === beginRange) {
       initialRangeArray.push(
         `<li data-id="${
           i - 1
-        }" class="pages_item" name="previous"><a href="javascript:void(0)">Prev</a></li><li data-id="${i}" class="pages_item"><a href="javascript:void(0)">${i}</a></li>`
+        }" class="pages__item pages__item--movement" name="previous"><a href="javascript:void(0)">Prev</a></li><li data-id="${i}" class="pages__item"><a href="javascript:void(0)">${i}</a></li>`
       );
     } else {
       initialRangeArray.push(
-        `<li data-id="${i}" class="pages_item"><a href="javascript:void(0)">${i}</a></li>`
+        `<li data-id="${i}" class="pages__item"><a href="javascript:void(0)">${i}</a></li>`
       );
     }
   }
@@ -54,7 +54,7 @@ window.addEventListener('load', () => {
   pagesHtmlBar(1, 5);
   document
     .querySelector(`[data-id="${1}"]`)
-    .classList.toggle('pages_item--active');
+    .classList.toggle('pages__item--active');
 });
 
 pagesBar.addEventListener('click', e => {
@@ -62,26 +62,26 @@ pagesBar.addEventListener('click', e => {
     loaderModal.classList.toggle('is-hidden');
 
     const allActiveSelectPage = document.querySelectorAll(
-      '.pages_item--active'
+      '.pages__item--active'
     );
     const pageId = parseInt(e.target.parentElement.getAttribute('data-id'), 10);
     const tagName = e.target.parentElement.getAttribute('name');
 
-    clearActivePage(allActiveSelectPage, 'pages_item--active');
+    clearActivePage(allActiveSelectPage, 'pages__item--active');
 
     if (tagName === 'next') {
       pagesHtmlBar(pageId - 4, pageId);
       document
         .querySelector(`[data-id="${pageId}"]`)
-        .classList.toggle('pages_item--active');
+        .classList.toggle('pages__item--active');
     } else if (tagName === 'previous') {
       pagesHtmlBar(pageId, pageId + 4);
       document
         .querySelector(`[data-id="${pageId}"]`)
-        .classList.toggle('pages_item--active');
+        .classList.toggle('pages__item--active');
     } else {
       const fatherElement = e.target.parentElement;
-      fatherElement.classList.toggle('pages_item--active');
+      fatherElement.classList.toggle('pages__item--active');
     }
 
     requestFetch(pageId);
